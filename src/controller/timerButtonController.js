@@ -1,7 +1,6 @@
-import React, { useState } from "react"
-import ThreeStateButton from "./ThreeStateButton";
+import { useState } from "react";
 
-export default function IntervalButton({buttonIsEnabled, setLastGuessTime}) {
+export default function useTimerButtonController(buttonIsEnabled, setLastGuessTime) {
   const [isActivated, setIsActivated] = useState(false)
   const [startedMillis, setStartedMillis] = useState(-1)
 
@@ -33,9 +32,5 @@ export default function IntervalButton({buttonIsEnabled, setLastGuessTime}) {
       onTimerEnd()
     }
   }
-
-
-  return <div className="big-button-container" onClick={onEvent} onKeyDown={onKeyDown} tabIndex={0} autoFocus>
-    <ThreeStateButton isActivated={isActivated} isEnabled={buttonIsEnabled} />
-    </div>;
+  return {onEvent, onKeyDown, isActivated}
 }

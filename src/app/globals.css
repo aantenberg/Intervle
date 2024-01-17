@@ -1,9 +1,15 @@
 :root {
   --primary: #642387;
-  --disabled: #ae81c5;
+  --disabled: #af81c5;
   --activated: #8e02da;
   --primary-transparent: #6423871A;
   --primary-dark: #26003A;
+  --threshold-0: #e0f3e4;
+  --threshold-0-dark: hsl(133, 97%, 12%);
+  --threshold-1: #f6efb7;
+  --threshold-1-dark: #534a06;
+  --max-threshold: #f6b7b7;
+  --max-threshold-dark: #430000;
   --border-radius: 16px;
   --margin: 2rem;
   --half-margin: 1rem;
@@ -73,17 +79,41 @@ body {
   background-color: var(--disabled);
 }
 
+.guess-container {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  margin: var(--half-margin);
+  gap: var(--half-margin);
+}
+
 .guess {
   background-color: var(--primary-transparent);
-  margin: var(--half-margin);
   border-radius: var(--border-radius);
   overflow: hidden;
+  /* TODO: This should only apply to the numbered guesses */
   padding: 0 var(--margin)
 }
 
-.guess h2 {
+.indicator {
+  padding: 0;
+  text-align: center;
+  background-color: var(--max-threshold);
+  color: var(--max-threshold-dark)
+}
+
+.guess-text {
   font-weight: 400;
   color: var(--primary-dark);
+}
+
+.score-0 {
+  background-color: var(--threshold-0);
+  color: var(--threshold-0-dark);
+}
+
+.score-1 {
+  background-color: var(--threshold-1);
+  color: var(--threshold-1-dark);
 }
 
 .activated {

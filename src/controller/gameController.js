@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { MAX_GUESSES, getAnswerForDate } from "@/util";
+import { MAX_GUESSES, getAnswerForDate, getGuessScore } from "@/util";
 
 export default function useGameController() {
   const TODAY_STRING = new Date().toLocaleDateString("en-us");
@@ -24,10 +24,8 @@ export default function useGameController() {
   useEffect(() => {
     // TODO: Refactor setMoveCanBeMade
     setMoveCanBeMade(true);
-    console.log(cookies)
     const intervleCookie = cookies['intervle'];
     if (!intervleCookie) {
-      console.log('No cookie')
       return;
     }
     if (intervleCookie['gameId'] === TODAY_STRING) {
@@ -55,21 +53,26 @@ export default function useGameController() {
   const recordGuess = async (guess) => {
     const guessInSec = Math.round(guess / 100) / 10;
     const copy = [...guesses]
-    copy[nextGuessIndex] = guessInSec;
+    const guessObj = buildGuessObject(guessInSec);
+    copy[nextGuessIndex] = guessObj;
     await delay(500);
     setGuesses(copy);
-    const isWinner = await checkWinner(guessInSec, copy);
-    console.log("IsWinner: " + isWinner);
+    const isWinner = await checkWinner(guessObj);
     updateCookies(copy, isWinner);
     setNextGuessIndex(nextGuessIndex + 1);
+  }
+
+  const buildGuessObject = (guess) => {
+    const guessScore = getGuessScore(guess, SOLUTION);
+    return { guess, guessScore }
   }
 
   const updateCookies = (guesses, isWinner) => {
     setCookie('intervle', { 'gameId': TODAY_STRING, guesses, lastGuessMadeIndex: nextGuessIndex, gameWasWon: isWinner })
   }
 
-  const checkWinner = async (guessInSec) => {
-    const isWinner = guessIsWinner(guessInSec);
+  const checkWinner = async (guessObj) => {
+    const isWinner = guessObj.guessScore === 0;
     if (isWinner) {
       setGameWasWon(true);
     }
@@ -82,9 +85,6 @@ export default function useGameController() {
     return isWinner;
   }
 
-  const guessIsWinner = (guessInSec) => {
-    return Math.abs(guessInSec - SOLUTION) < 0.51;
-  }
 
-  return { moveCanBeMade, gameWasWon, onGuess, guesses, SOLUTION, removeCookie }
+  return { moveCanBeMade, gameWasWon, onGuess, guesses, removeCookie }
 }
