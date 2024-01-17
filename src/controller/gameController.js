@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import IntervalButton from "./interval_button";
-import Guesses from "./Guesses";
 import { useCookies } from "react-cookie";
-import Confetti from "react-confetti"
+import { MAX_GUESSES, getAnswerForDate } from "@/util";
 
-export default function GameModel({ props }) {
-  const { MAX_GUESSES, getAnswerForDate, TODAY_STRING } = props;
+export default function useGameController() {
+  const TODAY_STRING = new Date().toLocaleDateString("en-us");
   const SOLUTION = getAnswerForDate(TODAY_STRING);
   const [isGameOver, setIsGameOver] = useState(false);
   const [gameWasWon, setGameWasWon] = useState(false);
@@ -26,8 +24,10 @@ export default function GameModel({ props }) {
   useEffect(() => {
     // TODO: Refactor setMoveCanBeMade
     setMoveCanBeMade(true);
+    console.log(cookies)
     const intervleCookie = cookies['intervle'];
     if (!intervleCookie) {
+      console.log('No cookie')
       return;
     }
     if (intervleCookie['gameId'] === TODAY_STRING) {
@@ -44,37 +44,47 @@ export default function GameModel({ props }) {
     }
   }, [cookies, removeCookie, TODAY_STRING])
 
-  const guessIsWinner = (guessInSec) => {
-    return Math.abs(guessInSec - SOLUTION) < 0.51;
-  }
-
   const onGuess = async (guess) => {
     setMoveCanBeMade(false);
     if (isGameOver) {
       return;
     }
+    recordGuess(guess);
+  }
+
+  const recordGuess = async (guess) => {
     const guessInSec = Math.round(guess / 100) / 10;
     const copy = [...guesses]
     copy[nextGuessIndex] = guessInSec;
     await delay(500);
     setGuesses(copy);
+    const isWinner = await checkWinner(guessInSec, copy);
+    console.log("IsWinner: " + isWinner);
+    updateCookies(copy, isWinner);
+    setNextGuessIndex(nextGuessIndex + 1);
+  }
+
+  const updateCookies = (guesses, isWinner) => {
+    setCookie('intervle', { 'gameId': TODAY_STRING, guesses, lastGuessMadeIndex: nextGuessIndex, gameWasWon: isWinner })
+  }
+
+  const checkWinner = async (guessInSec) => {
     const isWinner = guessIsWinner(guessInSec);
     if (isWinner) {
       setGameWasWon(true);
     }
-    setCookie('intervle', { 'gameId': TODAY_STRING, guesses: copy, lastGuessMadeIndex: nextGuessIndex, gameWasWon: isWinner })
     await delay(500);
     if (nextGuessIndex === guesses.length - 1 || isWinner) {
       setIsGameOver(true);
     } else {
       setMoveCanBeMade(true);
     }
-    setNextGuessIndex(nextGuessIndex + 1);
+    return isWinner;
   }
 
-  return <div className="game-card">
-    <IntervalButton setLastGuessTime={onGuess} buttonIsEnabled={moveCanBeMade} />
-    <Guesses guesses={guesses} answer={SOLUTION} />
-    {gameWasWon ? <Confetti initialVelocityX={{ min: -5, max: 5 }} initialVelocityY={{ min: -10, max: 10 }} numberOfPieces={400} recycle={false} /> : <></>}
-  </div>
+  const guessIsWinner = (guessInSec) => {
+    return Math.abs(guessInSec - SOLUTION) < 0.51;
+  }
+
+  return { moveCanBeMade, gameWasWon, onGuess, guesses, SOLUTION, removeCookie }
 }
