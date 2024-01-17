@@ -1,0 +1,106 @@
+:root {
+  --primary: #642387;
+  --disabled: #ae81c5;
+  --activated: #8e02da;
+  --primary-transparent: #6423871A;
+  --primary-dark: #26003A;
+  --border-radius: 16px;
+  --margin: 2rem;
+  --half-margin: 1rem;
+}
+
+body {
+  background-color: var(--primary-dark);
+  margin: 0;
+}
+
+.title-word {
+  color: #FFF;
+  text-align: center;
+  font-size: 34px;
+  margin: 0px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.game-card {
+  background-color: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  width: 40%;
+  margin: var(--margin) auto;
+}
+
+@media (max-width: 1000px) {
+  .game-card {
+    width: 90%;
+  }
+}
+
+#header-bar {
+  padding: 16px 0;
+  width: 100%;
+  background-color: var(--primary);
+  color: white;
+  text-align: center;
+}
+
+.big-button-container {
+  margin: var(--margin) auto;
+  width: 30%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.big-button-container:focus {
+  outline: none;
+}
+
+.big-button {
+  height: 100%;
+  width: 100%;
+  background-color: var(--primary);
+  border-radius: 50%;
+  overflow: hidden;
+  transition: background-color 0.5s ease;
+
+}
+
+.disabled {
+  background-color: var(--disabled);
+}
+
+.guess {
+  background-color: var(--primary-transparent);
+  margin: var(--half-margin);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  padding: 0 var(--margin)
+}
+
+.guess h2 {
+  font-weight: 400;
+  color: var(--primary-dark);
+}
+
+.activated {
+  background-color: var(--activated);
+  transition-property: -moz-transform;
+  transition-duration: 1s;
+  animation-name: grow;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+}
+
+@keyframes grow {
+  0%, 14%, 41%, 54%, 70%, 87%, 98% {
+    transform: scale(1);
+  }
+  8%, 25%, 50%, 62%, 80%, 92% {
+    transform: scale(0.9);
+  }
+}
