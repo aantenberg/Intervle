@@ -13,7 +13,7 @@ export const getAnswerForDate = (formattedDate) => {
   return 1 + Math.abs(hashCode(stringToHash) % 100) / 10;
 }
 
-const thresholds = [0.51, 2.01]
+const thresholds = [0.5, 2]
 
 // Returns a rating of the guess. A rating of 0 means you are within the 0th threshold of the answer.
 // A rating of 1 means your guess is above the answer, within the 1st threshold.
@@ -24,7 +24,7 @@ export const getGuessScore = (guess, answer) => {
   const sign = difference / absDifference;
   let score = 0;
   for (const threshold of thresholds) {
-    if (absDifference < threshold) {
+    if (absDifference < threshold + 0.01) {
       return score * sign;
     }
     score++;

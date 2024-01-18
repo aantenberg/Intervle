@@ -6,9 +6,10 @@ import useGameController from "@/controller/gameController";
 export default function Game() {
   const gameController = useGameController();
 
-  return <div className="game-card">
+  return <div className="card">
     <IntervalButton setLastGuessTime={gameController.onGuess} buttonIsEnabled={gameController.moveCanBeMade} />
     <Guesses guesses={gameController.guesses} />
     {gameController.gameWasWon ? <Confetti initialVelocityX={{ min: -5, max: 5 }} initialVelocityY={{ min: -10, max: 10 }} numberOfPieces={400} recycle={false} /> : <></>}
+    <button onClick={() => gameController.removeCookie('intervle')}>Remove cookies</button>
   </div>
 }

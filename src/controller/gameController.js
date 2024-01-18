@@ -85,6 +85,5 @@ export default function useGameController() {
     return isWinner;
   }
 
-
   return { moveCanBeMade, gameWasWon, onGuess, guesses, removeCookie }
 }

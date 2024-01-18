@@ -4,20 +4,57 @@
   --activated: #8e02da;
   --primary-transparent: #6423871A;
   --primary-dark: #26003A;
-  --threshold-0: #e0f3e4;
-  --threshold-0-dark: hsl(133, 97%, 12%);
-  --threshold-1: #f6efb7;
-  --threshold-1-dark: #534a06;
-  --max-threshold: #f6b7b7;
-  --max-threshold-dark: #430000;
+  --threshold-0-color: 0, 101, 22;
+  --threshold-0: rgba(var(--threshold-0-color), 0.1);
+  --threshold-0-dark: rgb(var(--threshold-0-color));
+  --threshold-1-color: 167, 130, 0;
+  --threshold-1: rgba(var(--threshold-1-color), 0.1);
+  --threshold-1-dark: rgb(var(--threshold-1-color));
+  --max-threshold-color: 162, 0, 0;
+  --max-threshold: rgba(var(--max-threshold-color), 0.1);
+  --max-threshold-dark: rgb(var(--max-threshold-color));
   --border-radius: 16px;
   --margin: 2rem;
   --half-margin: 1rem;
+  --double-margin: 4rem;
 }
 
 body {
   background-color: var(--primary-dark);
   margin: 0;
+}
+
+p {
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.instruction-1 {
+  border-width: 1px;
+  border-bottom: rgba(0,0,0,0.1) solid; 
+}
+
+.instruction-2 {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  column-gap: 10px;
+  margin: var(--half-margin) 0;
+}
+
+.instruction-3 {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  column-gap: 10px;
+  margin-top: 20px;
+}
+
+.badge-text {
+  font-weight: 500;
+  margin: 0;
+}
+
+.thin {
+  font-weight: 300;
 }
 
 .title-word {
@@ -30,7 +67,7 @@ body {
   line-height: normal;
 }
 
-.game-card {
+.card {
   background-color: white;
   border-radius: var(--border-radius);
   overflow: hidden;
@@ -39,7 +76,7 @@ body {
 }
 
 @media (max-width: 1000px) {
-  .game-card {
+  .card {
     width: 90%;
   }
 }
@@ -133,4 +170,26 @@ body {
   8%, 25%, 50%, 62%, 80%, 92% {
     transform: scale(0.9);
   }
+}
+
+.modal {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: var(--border-radius);
+  padding: var(--margin) var(--double-margin);
+  min-width: 200px;
+  width: 35%;
+  max-height: 70%;
+  overflow-y: scroll;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0, 0.4)
 }
