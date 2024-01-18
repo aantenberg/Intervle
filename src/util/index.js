@@ -21,7 +21,7 @@ const thresholds = [0.5, 2]
 export const getGuessScore = (guess, answer) => {
   const difference = guess - answer;
   const absDifference = Math.abs(difference);
-  const sign = difference / absDifference;
+  const sign = absDifference === 0 || difference / absDifference;
   let score = 0;
   for (const threshold of thresholds) {
     if (absDifference < threshold + 0.01) {

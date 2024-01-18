@@ -5,13 +5,14 @@ export default function InstructionsModal({ instructionsController }) {
   return <ReactModal
     isOpen={instructionsController.isOpen}
     className="modal card"
-    overlayClassName="overlay"
     onRequestClose={instructionsController.closePane}
     shouldCloseOnEsc={true}
     shouldFocusAfterRender={true}
     shouldReturnFocusAfterClose={true}
+    closeTimeoutMS={500}
     ariaHideApp={false}>
     <div onClick={instructionsController.closePane}>
+      <h2>How it Works:</h2>
       <div className="instruction-1">
         <p>Guess the <span style={{ color: 'var(--primary-dark)', fontWeight: 600 }}>Intervle</span> in six tries.</p>
         <p>To make a guess, press the <span style={{ color: 'var(--primary)', fontWeight: 600 }}>purple circle</span> to start a timer. After the amount of time you&apos;d like to guess, press the purple circle again to end the timer.</p>

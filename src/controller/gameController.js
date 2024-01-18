@@ -5,6 +5,7 @@ import { MAX_GUESSES, getAnswerForDate, getGuessScore } from "@/util";
 export default function useGameController() {
   const TODAY_STRING = new Date().toLocaleDateString("en-us");
   const SOLUTION = getAnswerForDate(TODAY_STRING);
+  console.log(getGuessScore(8.4, 8.4));
   const [isGameOver, setIsGameOver] = useState(false);
   const [gameWasWon, setGameWasWon] = useState(false);
   const [guesses, setGuesses] = useState(new Array(MAX_GUESSES).fill(null));
@@ -22,7 +23,6 @@ export default function useGameController() {
   }, [gameWasWon])
 
   useEffect(() => {
-    // TODO: Refactor setMoveCanBeMade
     setMoveCanBeMade(true);
     const intervleCookie = cookies['intervle'];
     if (!intervleCookie) {
