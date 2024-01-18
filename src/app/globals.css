@@ -191,11 +191,17 @@ p {
 .modal {
   border-radius: var(--border-radius);
   padding: var(--margin) var(--double-margin);
-  min-width: 200px;
   width: 35%;
   max-height: 85%;
   overflow-y: scroll;
 }
+
+@media (max-width: 600px) {
+  .modal {
+    width: 60%;
+  }
+}
+
 
 .ReactModal__Overlay {
   position: fixed;
