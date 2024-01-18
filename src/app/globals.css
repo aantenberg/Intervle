@@ -31,7 +31,7 @@ p {
 
 .instruction-1 {
   border-width: 1px;
-  border-bottom: rgba(0,0,0,0.1) solid; 
+  border-bottom: rgba(0, 0, 0, 0.1) solid;
 }
 
 .instruction-2 {
@@ -42,10 +42,13 @@ p {
 }
 
 .instruction-3 {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  column-gap: 10px;
-  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.instruction-3 p {
+  min-width: 200px;
 }
 
 .badge-text {
@@ -164,24 +167,33 @@ p {
 }
 
 @keyframes grow {
-  0%, 14%, 41%, 54%, 70%, 87%, 98% {
+
+  0%,
+  14%,
+  41%,
+  54%,
+  70%,
+  87%,
+  98% {
     transform: scale(1);
   }
-  8%, 25%, 50%, 62%, 80%, 92% {
+
+  8%,
+  25%,
+  50%,
+  62%,
+  80%,
+  92% {
     transform: scale(0.9);
   }
 }
 
 .modal {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   border-radius: var(--border-radius);
   padding: var(--margin) var(--double-margin);
   min-width: 200px;
   width: 35%;
-  max-height: 70%;
+  max-height: 85%;
   overflow-y: scroll;
 }
 
@@ -191,5 +203,5 @@ p {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0,0,0, 0.4)
+  background: rgba(0, 0, 0, 0.4);
 }

@@ -7,7 +7,8 @@ export default function InstructionsModal({ instructionsController }) {
     className="modal card"
     overlayClassName="overlay"
     onRequestClose={instructionsController.closePane}
-    shouldCloseOnEsc={true} shouldFocusAfterRender={true}
+    shouldCloseOnEsc={true}
+    shouldFocusAfterRender={true}
     shouldReturnFocusAfterClose={true}
     ariaHideApp={false}>
     <div onClick={instructionsController.closePane}>
@@ -22,19 +23,25 @@ export default function InstructionsModal({ instructionsController }) {
         <div style={{ display: 'inline-block', margin: 'auto 0' }}><Badge padding="10px 15px"><h2 className="badge-text thin">↓</h2></Badge></div>
         <p>means the target is below your guess.</p>
       </div>
-      <div className="instruction-3">
-        <div style={{ display: 'block', margin: 'auto 0' }}><Badge color={"var(--max-threshold)"}>
-          <h2 className="badge-text" style={{ color: 'var(--max-threshold-dark)' }}>Red</h2>
-        </Badge></div>
-        <p style={{ margin: 15 }}>means you&apos;re far from the target.</p>
-        <div style={{ display: 'block', margin: 'auto 0' }}><Badge color={"var(--threshold-1)"}>
-          <h2 className="badge-text" style={{ color: 'var(--threshold-1-dark)' }}>Yellow</h2>
-        </Badge></div>
-        <p style={{ margin: 15 }}>means you&apos;re within 2 seconds!</p>
-        <div style={{ display: 'block', margin: 'auto 0' }}><Badge color={"var(--threshold-0)"}>
-          <h2 className="badge-text" style={{ color: 'var(--threshold-0-dark)' }}>Green</h2>
-        </Badge></div>
-        <p style={{ margin: 15 }}>means you got it!</p>
+      <div>
+        <div className="instruction-3">
+          <div style={{ display: 'block', margin: 'auto 0', flex: 1 }}><Badge color={"var(--max-threshold)"}>
+            <h2 className="badge-text" style={{ color: 'var(--max-threshold-dark)' }}>Red</h2>
+          </Badge></div>
+          <p style={{ margin: 15, flex: 4 }}>means you&apos;re far from the target.</p>
+        </div>
+        <div className="instruction-3">
+          <div style={{ display: 'block', margin: 'auto 0' }}><Badge color={"var(--threshold-1)"}>
+            <h2 className="badge-text" style={{ color: 'var(--threshold-1-dark)' }}>Yellow</h2>
+          </Badge></div>
+          <p style={{ margin: 15 }}>means you&apos;re within 2 seconds!</p>
+        </div>
+        <div className="instruction-3">
+          <div style={{ display: 'block', margin: 'auto 0' }}><Badge color={"var(--threshold-0)"}>
+            <h2 className="badge-text" style={{ color: 'var(--threshold-0-dark)' }}>Green</h2>
+          </Badge></div>
+          <p style={{ margin: 15 }}>means you got it!</p>
+        </div>
       </div>
     </div>
   </ReactModal>
