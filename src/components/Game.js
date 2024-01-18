@@ -10,6 +10,5 @@ export default function Game() {
     <IntervalButton setLastGuessTime={gameController.onGuess} buttonIsEnabled={gameController.moveCanBeMade} />
     <Guesses guesses={gameController.guesses} />
     {gameController.gameWasWon ? <Confetti initialVelocityX={{ min: -5, max: 5 }} initialVelocityY={{ min: -10, max: 10 }} numberOfPieces={400} recycle={false} /> : <></>}
-    <button onClick={() => gameController.removeCookie('intervle')}>Remove cookies</button>
   </div>
 }
