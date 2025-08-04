@@ -5,7 +5,6 @@ import { MAX_GUESSES, getAnswerForDate, getGuessScore } from "@/util";
 export default function useGameController() {
   const TODAY_STRING = new Date().toLocaleDateString("en-us");
   const SOLUTION = getAnswerForDate(TODAY_STRING);
-  console.log(getGuessScore(8.4, 8.4));
   const [isGameOver, setIsGameOver] = useState(false);
   const [gameWasWon, setGameWasWon] = useState(false);
   const [guesses, setGuesses] = useState(new Array(MAX_GUESSES).fill(null));
@@ -85,5 +84,7 @@ export default function useGameController() {
     return isWinner;
   }
 
-  return { moveCanBeMade, gameWasWon, onGuess, guesses, removeCookie }
+  const getGuessScores = () => guesses.map(g => g?.guessScore).filter(x => x != null);
+
+  return { moveCanBeMade, gameWasWon, onGuess, guesses, removeCookie, isGameOver, getGuessScores }
 }

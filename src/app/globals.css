@@ -78,6 +78,10 @@ p {
   margin: var(--margin) auto;
 }
 
+.padded {
+  padding: var(--half-margin);
+}
+
 @media (max-width: 1000px) {
   .card {
     width: 90%;
@@ -122,7 +126,7 @@ p {
 .guess-container {
   display: grid;
   grid-template-columns: 4fr 1fr;
-  margin: var(--half-margin);
+  margin: var(--half-margin) auto;
   gap: var(--half-margin);
 }
 
@@ -200,6 +204,11 @@ p {
   .modal {
     width: 60%;
   }
+}
+
+.share-button {
+  text-align: center;
+  font-size: medium;
 }
 
 

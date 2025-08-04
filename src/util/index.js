@@ -2,8 +2,8 @@ export const MAX_GUESSES = 6;
 
 const hashCode = (s) => {
   var h = 0, l = s.length, i = 0;
-  if ( l > 0 )
-    while (i < l)    
+  if (l > 0)
+    while (i < l)
       h = (h << 5) - h + s.charCodeAt(i++) | 0;
   return h;
 }
@@ -31,3 +31,16 @@ export const getGuessScore = (guess, answer) => {
   }
   return score * sign;
 }
+
+const serializeMagnitude = guessScore => guessScore == 0 ? '🟢' : Math.abs(guessScore) === 1 ? '🟡' : '🔴';
+const serializeDirection = guessScore => guessScore == 0 ? '✅' : guessScore < 0 ? '⬇️' : '⬆️';
+
+export const serializeGuessesForShare = guesses => {
+  return guesses
+    .filter(guess => guess != null)
+    .map(guess => guess.guessScore)
+    .map(score => serializeMagnitude(score) + serializeDirection(score))
+    .join('\n')
+}
+
+export const SHARE_TEXT = "Think you can do better? Play today's Intervle.";
